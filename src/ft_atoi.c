@@ -6,11 +6,11 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:01:24 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/03 22:42:08 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:37:25 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/imports.h"
+#include "../includes/philosophers.h"
 
 static int	ft_isdigit(int c)
 {
@@ -42,7 +42,7 @@ static int	return_overflow(long int result, int nptr, int sign)
 	return (1);
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr) //remove negatives
 {
 	long int	result;
 	int			sign;

@@ -6,16 +6,17 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:04:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/03 22:37:43 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:19:04 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/imports.h"
+#include "../includes/philosophers.h"
 #include "../includes/errors.h"
-#include "../includes/structs.h"
 
 ssize_t	parse_args(int ac, char **av, t_table *t)
 {
+	if (ac < 5 || ac > 6)
+		return (print_error(ARGS_NB));
 	t->philo_count = ft_atoi(av[1]);
 	t->die_time = ft_atoi(av[2]);
 	t->eat_time = ft_atoi(av[3]);
