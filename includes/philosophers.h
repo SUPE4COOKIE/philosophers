@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/08 20:14:51 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/09 22:18:28 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_table
 	int			sleep_time;
 	int			eat_count;
 	_Atomic	char	has_started;
+	long long		start_time;
 	t_philo		*philosophers;
 	t_fork		*forks;
 	pthread_mutex_t	printf;
@@ -37,7 +38,7 @@ typedef struct s_table
 
 struct s_philo
 {
-	size_t			id;
+	int				id;
 	int				last_meal;
 	size_t			meal_count;
 	pthread_t		thread;
@@ -54,6 +55,9 @@ int		ft_atoi(const char *nptr);
 ssize_t	parse_args(int ac, char **av, t_table *t);
 ssize_t	print_error(char *str);
 int		init_philos(t_table *table);
-void	init_threads(t_table *table);
+int		init_threads(t_table *table);
+int		init_mutexes(t_table *table);
+long long	get_time_ms(void);
 void 	*routine(void *arg);
+int		eat(t_philo *philo);
 # endif

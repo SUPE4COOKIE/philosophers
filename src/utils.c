@@ -6,11 +6,12 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/08 20:35:14 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/09 22:17:04 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+#include "../includes/errors.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -34,7 +35,7 @@ int	init_philos(t_table *table)
 	i = 0;
 	table->philosophers = malloc(sizeof(t_philo) * table->philo_count);
 	if (!table->philosophers)
-		return (1);
+		return (print_error(ERR_MALLOC));
 	while (i < table->philo_count)
 	{
 		table->philosophers[i].id = i;
@@ -46,17 +47,50 @@ int	init_philos(t_table *table)
 	return (0);
 }
 
-void	init_threads(t_table *table)
+int	init_mutexes(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_count);
+	if (!table->forks)
+		return (print_error(ERR_MALLOC));
+	while (i < table->philo_count)
+	{
+		if (!pthread_mutex_init(&(table->forks[i].fork), NULL))
+			return (print_error(ERR_MUTEX));
+		i++;
+	}
+	if (!pthread_mutex_init(&table->printf, NULL))
+		return (print_error(ERR_MUTEX));
+	return (0);
+}
+
+long long	get_time_ms(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL))
+		return (print_error(ERR_TIME), -1);
+	return (long long)((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+int	init_threads(t_table *table)
 {
 	int i;
 
 	i = 0;
 	while (i < table->philo_count)
 	{
-		pthread_create(&table->philosophers[i].thread, NULL, routine, &table->philosophers[i]);
+		if (pthread_create(&table->philosophers[i].thread, NULL, routine, &table->philosophers[i]))
+			return (print_error(ERR_THREAD));
 		i++;
 	}
 	table->has_started = 1;
+	table->start_time = get_time_ms();
+	if (table->start_time == -1)
+		return (print_error(ERR_TIME));
 	while (i--)
 		pthread_join(table->philosophers[i].thread, NULL);
+	return (0);
 }

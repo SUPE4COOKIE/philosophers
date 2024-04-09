@@ -3,9 +3,9 @@ CFLAGS = -MMD -MP -Wall -Wextra -Werror -pthread
 NAME = philo
 
 SRC_PATH = src
-SRC_FILES = args_parser.c ft_atoi.c philosophers.c utils.c
+SRC_FILES = args_parser.c ft_atoi.c philosophers.c utils.c actions.c
 HEADER_PATH = includes
-HEADER_FILES = philosophers.h errors.h
+HEADER_FILES = philosophers.h errors.h actions.h
 HEADERS = $(addprefix $(HEADER_PATH)/, $(HEADER_FILES))
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ_PATH = obj

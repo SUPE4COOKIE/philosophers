@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/08 20:34:40 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/09 22:11:19 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void *routine(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->data->has_started == 0)
 		;
-	printf("Hello Philosopher %ld\n", philo->id);
+	if (philo->id % 2 == 0)
+	{
+		eat(philo);
+	}
 	return (NULL);
 }
 
@@ -30,7 +33,10 @@ int	main(int ac, char **av)
 	if (parse_args(ac, av, &table) != 0)
 		return (1);
 	if (init_philos(&table))
-		return (1);
-	init_threads(&table);
+		return (1); // free needed
+	if (init_mutexes(&table))
+		return (1); // free needed
+	if (init_threads(&table))
+		return (1); // free needed
 	return (0);
 }
