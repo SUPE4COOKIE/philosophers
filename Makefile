@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -MMD -MP -Wall -Wextra -Werror -pthread
+CFLAGS = -MMD -MP -Wall -Wextra -Werror -pthread -g3
 NAME = philo
 
 SRC_PATH = src
@@ -15,7 +15,7 @@ OBJDEPS = $(addprefix $(OBJ_PATH)/, $(OBJ:.o=.d))
 all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
-	$(CC) $(OBJ) -pthread -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile $(HEADERS) | $(OBJ_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@

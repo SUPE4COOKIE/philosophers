@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/09 22:11:19 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/14 07:30:52 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void *routine(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->data->has_started == 0)
 		;
-	if (philo->id % 2 == 0)
-	{
-		eat(philo);
-	}
+	eat(philo);
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/09 22:17:04 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/14 07:23:37 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,23 @@ int	init_mutexes(t_table *table)
 	int	i;
 
 	i = 0;
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_count);
+	table->forks = malloc(sizeof(t_fork) * table->philo_count);
 	if (!table->forks)
 		return (print_error(ERR_MALLOC));
 	while (i < table->philo_count)
 	{
-		if (!pthread_mutex_init(&(table->forks[i].fork), NULL))
+		if (pthread_mutex_init(&(table->forks[i].fork), NULL))
 			return (print_error(ERR_MUTEX));
 		i++;
 	}
-	if (!pthread_mutex_init(&table->printf, NULL))
+	if (pthread_mutex_init(&table->printf, NULL))
 		return (print_error(ERR_MUTEX));
+	i = 0;
+	while (i < table->philo_count)
+	{
+		table->forks[i].beeing_used = 0;
+		i++;
+	}
 	return (0);
 }
 
@@ -80,16 +86,17 @@ int	init_threads(t_table *table)
 	int i;
 
 	i = 0;
+	table->has_started = 0;
 	while (i < table->philo_count)
 	{
 		if (pthread_create(&table->philosophers[i].thread, NULL, routine, &table->philosophers[i]))
 			return (print_error(ERR_THREAD));
 		i++;
 	}
-	table->has_started = 1;
 	table->start_time = get_time_ms();
 	if (table->start_time == -1)
 		return (print_error(ERR_TIME));
+	table->has_started = 1;
 	while (i--)
 		pthread_join(table->philosophers[i].thread, NULL);
 	return (0);
