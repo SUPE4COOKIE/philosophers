@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/14 09:44:43 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:49:27 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	take_forks(t_philo *philo)
 	forks = philo->data->forks;
 	id = philo->id;
 	count = philo->data->philo_count;
+	pthread_mutex_lock(&(forks[id].beeing_checked));
 	while (fork_in_use(philo))
 		;
+	pthread_mutex_unlock(&(forks[id].beeing_checked));
 	forks[id].beeing_used = 1;
 	forks[(id + 1) % count].beeing_used = 1;
 	if (pthread_mutex_lock(&(forks[id].fork)) != 0)
@@ -97,5 +99,12 @@ int	sleep_philo(t_philo *philo)
 		return (1);
 	if (usleep(philo->data->sleep_time * 1000) < 0)
 		return (print_error(ERR_USLEEP));
+	return (0);
+}
+
+int	think(t_philo *philo)
+{
+	if (print_status(philo, THINKING))
+		return (1);
 	return (0);
 }

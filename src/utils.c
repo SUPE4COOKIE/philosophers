@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/14 07:23:37 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:04:46 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	init_mutexes(t_table *table)
 	{
 		if (pthread_mutex_init(&(table->forks[i].fork), NULL))
 			return (print_error(ERR_MUTEX));
+		if (pthread_mutex_init(&(table->forks[i].beeing_checked), NULL))
+			return (print_error(ERR_MUTEX));
 		i++;
 	}
 	if (pthread_mutex_init(&table->printf, NULL))
@@ -67,6 +69,7 @@ int	init_mutexes(t_table *table)
 	while (i < table->philo_count)
 	{
 		table->forks[i].beeing_used = 0;
+		table->philosophers[i].meal_count = 0;
 		i++;
 	}
 	return (0);
