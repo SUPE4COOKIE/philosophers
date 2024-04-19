@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 03:43:03 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 05:57:25 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_table
 	int			sleep_time;
 	int			eat_count;
 	_Atomic	char	has_started;
-	long long		start_time;
+	_Atomic long long		start_time;
 	t_philo		*philosophers;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	printf;
@@ -39,7 +39,8 @@ typedef struct s_table
 struct s_philo
 {
 	int				id;
-	long long		last_meal;
+	_Atomic long long	last_meal;
+	_Atomic char	alive;
 	size_t			meal_count;
 	pthread_t		thread;
 	t_table			*data;
@@ -56,4 +57,6 @@ void 	*routine(void *arg);
 int		eat(t_philo *philo);
 int		sleep_philo(t_philo *philo);
 int		think(t_philo *philo);
+int 	death_wrapper(t_philo *philo, char action);
+int		print_status(t_philo *philo, char *status);
 # endif

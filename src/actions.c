@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 04:06:49 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 05:56:59 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int	eat(t_philo *philo)
 		return (1);
 	if (print_status(philo, EATING))
 		return (1);
+	philo->last_meal = get_time_ms();
+	philo->meal_count++;
 	usleep(philo->data->eat_time * 1000);
 	if (let_forks(philo))
 		return (1);
-	philo->meal_count++;
-	philo->last_meal = get_time_ms();
 	return (0);
 }
 
@@ -85,3 +85,4 @@ int	think(t_philo *philo)
 		return (1);
 	return (0);
 }
+

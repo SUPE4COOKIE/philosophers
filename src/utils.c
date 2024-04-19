@@ -6,12 +6,13 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 03:29:30 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 05:58:39 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 #include "../includes/errors.h"
+#include "../includes/actions.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -67,6 +68,40 @@ int	init_mutexes(t_table *table)
 	while (i < table->philo_count)
 	{
 		table->philosophers[i].meal_count = 0;
+		table->philosophers[i].alive = 1;
+		i++;
+	}
+	return (0);
+}
+
+void	death_giver(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_count)
+	{
+		if (table->philosophers[i].alive == 1)
+		{
+			if (get_time_ms() - table->philosophers[i].last_meal > table->die_time)
+			{
+				table->philosophers[i].alive = 0;
+				print_status(&table->philosophers[i], DEAD);
+			}
+		}
+		i++;
+	}
+}
+
+int	remaining_alive(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_count)
+	{
+		if (table->philosophers[i].alive == 1)
+			return (1);
 		i++;
 	}
 	return (0);
@@ -97,6 +132,12 @@ int	init_threads(t_table *table)
 	if (table->start_time == -1)
 		return (print_error(ERR_TIME));
 	table->has_started = 1;
+	usleep(table->die_time * 1000);
+	while (remaining_alive(table))
+	{
+		death_giver(table);
+		usleep(1000);
+	}
 	while (i--)
 		pthread_join(table->philosophers[i].thread, NULL);
 	return (0);
