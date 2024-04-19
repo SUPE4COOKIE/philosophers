@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 05:58:39 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:42:39 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,4 +141,22 @@ int	init_threads(t_table *table)
 	while (i--)
 		pthread_join(table->philosophers[i].thread, NULL);
 	return (0);
+}
+
+void	free_table(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	if (table->philosophers)
+		free(table->philosophers);
+	if (table->forks)
+	{
+		while (i < table->philo_count)
+		{
+			pthread_mutex_destroy(&table->forks[i]);
+			i++;
+		}
+			free(table->forks);
+	}
 }

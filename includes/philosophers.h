@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 05:57:25 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:41:59 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ int		sleep_philo(t_philo *philo);
 int		think(t_philo *philo);
 int 	death_wrapper(t_philo *philo, char action);
 int		print_status(t_philo *philo, char *status);
+void	free_table(t_table *table);
 # endif

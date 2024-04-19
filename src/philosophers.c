@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 05:49:12 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:43:00 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void *routine(void *arg)
 			break ;
 		think(philo);
 	}
+	philo->alive = 2;
 	return (NULL);
 }
 
@@ -46,10 +47,11 @@ int	main(int ac, char **av)
 	if (parse_args(ac, av, &table) != 0)
 		return (1);
 	if (init_philos(&table))
-		return (1); // free needed
+		return (free_table(&table), 1);
 	if (init_mutexes(&table))
-		return (1); // free needed
+		return (free_table(&table), 1);
 	if (init_threads(&table))
-		return (1); // free needed
+		return (free_table(&table), 1);
+	free_table(&table);
 	return (0);
 }
