@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/15 11:32:35 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:43:03 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct s_table
 	int			sleep_time;
 	int			eat_count;
 	_Atomic	char	has_started;
-	_Atomic long long		start_time;
+	long long		start_time;
 	t_philo		*philosophers;
-	t_fork		*forks;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	printf;
 }				t_table;
 
@@ -43,13 +43,6 @@ struct s_philo
 	size_t			meal_count;
 	pthread_t		thread;
 	t_table			*data;
-};
-
-struct s_fork
-{
-	pthread_mutex_t			beeing_checked;
-	_Atomic char			beeing_used;
-	pthread_mutex_t			fork;
 };
 
 int		ft_atoi(const char *nptr);

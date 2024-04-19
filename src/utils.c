@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/15 11:04:46 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:29:30 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,12 @@ int	init_mutexes(t_table *table)
 	int	i;
 
 	i = 0;
-	table->forks = malloc(sizeof(t_fork) * table->philo_count);
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_count);
 	if (!table->forks)
 		return (print_error(ERR_MALLOC));
 	while (i < table->philo_count)
 	{
-		if (pthread_mutex_init(&(table->forks[i].fork), NULL))
-			return (print_error(ERR_MUTEX));
-		if (pthread_mutex_init(&(table->forks[i].beeing_checked), NULL))
+		if (pthread_mutex_init(&(table->forks[i]), NULL))
 			return (print_error(ERR_MUTEX));
 		i++;
 	}
@@ -68,7 +66,6 @@ int	init_mutexes(t_table *table)
 	i = 0;
 	while (i < table->philo_count)
 	{
-		table->forks[i].beeing_used = 0;
 		table->philosophers[i].meal_count = 0;
 		i++;
 	}

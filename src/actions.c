@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/15 10:49:27 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/19 04:06:49 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,18 @@ int	print_status(t_philo *philo, char *status)
 	return (0);
 }
 
-int fork_in_use(t_philo *philo)
-{
-	t_fork	*forks;
-	int		id;
-	int		count;
-
-	forks = philo->data->forks;
-	id = philo->id;
-	count = philo->data->philo_count;
-	if (forks[philo->id].beeing_used == 1
-			|| forks[(id + 1) % count].beeing_used == 1)
-		return (1);
-	return (0);
-}
-
 int	take_forks(t_philo *philo)
 {
-	t_fork	*forks;
-	int		id;
-	int		count;
+	pthread_mutex_t	*forks;
+	int				id;
+	int				count;
 
 	forks = philo->data->forks;
 	id = philo->id;
 	count = philo->data->philo_count;
-	pthread_mutex_lock(&(forks[id].beeing_checked));
-	while (fork_in_use(philo))
-		;
-	pthread_mutex_unlock(&(forks[id].beeing_checked));
-	forks[id].beeing_used = 1;
-	forks[(id + 1) % count].beeing_used = 1;
-	if (pthread_mutex_lock(&(forks[id].fork)) != 0)
+	if (pthread_mutex_lock(&(forks[id])) != 0)
 		return (print_error(ERR_MUTEX_LOCK));
-	if (pthread_mutex_lock(&(forks[(id + 1) % count].fork)) != 0)
+	if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
 		return (print_error(ERR_MUTEX));
 	print_status(philo, FORK_TAKEN);
 	print_status(philo, FORK_TAKEN);
@@ -70,12 +49,10 @@ int	let_forks(t_philo *philo)
 
 	id = philo->id;
 	count = philo->data->philo_count;
-	if (pthread_mutex_unlock(&(philo->data->forks[id].fork)) != 0)
+	if (pthread_mutex_unlock(&(philo->data->forks[(id + 1) % count])) != 0)
 		return (print_error(ERR_MUTEX_UNLOCK));
-	if (pthread_mutex_unlock(&(philo->data->forks[(id + 1) % count].fork)) != 0)
+	if (pthread_mutex_unlock(&(philo->data->forks[id])) != 0)
 		return (print_error(ERR_MUTEX_UNLOCK));
-	philo->data->forks[id].beeing_used = 0;
-	philo->data->forks[(id + 1) % count].beeing_used = 0;
 	return (0);
 }
 
