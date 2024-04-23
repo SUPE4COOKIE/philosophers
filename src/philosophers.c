@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 13:43:00 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:26:06 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void *routine(void *arg)
 
 	philo = (t_philo *)arg;
 	while (philo->data->has_started == 0)
-		usleep(1000);
+		usleep(500);
 	philo->last_meal = get_time_ms();
 	if (philo->id % 2 == 0)
 		usleep(philo->data->eat_time * 1000);
@@ -26,13 +26,13 @@ void *routine(void *arg)
 		usleep(philo->data->eat_time * 1000);
 	while (philo->data->eat_count == -1 || (int)(philo->meal_count) < philo->data->eat_count)
 	{
-		if (!philo->alive)
+		if (!philo->data->has_started)
 			break ;
 		eat(philo);
-		if (!philo->alive)
+		if (!philo->data->has_started)
 			break ;
 		sleep_philo(philo);
-		if (!philo->alive)
+		if (!philo->data->has_started)
 			break ;
 		think(philo);
 	}

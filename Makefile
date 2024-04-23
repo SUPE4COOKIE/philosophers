@@ -8,7 +8,7 @@ HEADER_PATH = includes
 HEADER_FILES = philosophers.h errors.h actions.h
 HEADERS = $(addprefix $(HEADER_PATH)/, $(HEADER_FILES))
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
-OBJ_PATH = obj
+OBJ_PATH = .obj
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC_FILES:.c=.o))
 OBJDEPS = $(addprefix $(OBJ_PATH)/, $(OBJ:.o=.d))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 13:42:39 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:11:12 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	init_mutexes(t_table *table)
 	return (0);
 }
 
-void	death_giver(t_table *table)
+int	death_giver(t_table *table)
 {
 	int	i;
 
@@ -85,12 +85,14 @@ void	death_giver(t_table *table)
 		{
 			if (get_time_ms() - table->philosophers[i].last_meal > table->die_time)
 			{
-				table->philosophers[i].alive = 0;
 				print_status(&table->philosophers[i], DEAD);
+				table->has_started = 0;
+				return (1);
 			}
 		}
 		i++;
 	}
+	return (0);
 }
 
 int	remaining_alive(t_table *table)
@@ -132,10 +134,11 @@ int	init_threads(t_table *table)
 	if (table->start_time == -1)
 		return (print_error(ERR_TIME));
 	table->has_started = 1;
-	usleep(table->die_time * 1000);
+	usleep(table->die_time * 1000); // FIXME: fix ;e ;dr
 	while (remaining_alive(table))
 	{
-		death_giver(table);
+		if (death_giver(table))
+			break ;
 		usleep(1000);
 	}
 	while (i--)

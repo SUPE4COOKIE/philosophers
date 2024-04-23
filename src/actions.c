@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 05:56:59 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:10:22 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 int	print_status(t_philo *philo, char *status)
 {
+	if (philo->data->has_started == 0)
+		return (0);
 	if (pthread_mutex_lock(&philo->data->printf) != 0)
 		return (print_error(ERR_MUTEX_LOCK));
-	if (printf("%lld %d %s\n", get_time_ms() - philo->data->start_time, philo->id, status) < 0)
+	if (printf("%lld %d %s\n", get_time_ms() - philo->data->start_time, philo->id + 1, status) < 0)
 		return (print_error(ERR_PRINTF));
 	pthread_mutex_unlock(&philo->data->printf);
 	return (0);

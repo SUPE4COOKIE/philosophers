@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/19 13:41:59 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:35:38 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void 	*routine(void *arg);
 int		eat(t_philo *philo);
 int		sleep_philo(t_philo *philo);
 int		think(t_philo *philo);
-int 	death_wrapper(t_philo *philo, char action);
+int		death_giver(t_table *table);
 int		print_status(t_philo *philo, char *status);
 void	free_table(t_table *table);
 # endif
