@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/23 17:10:22 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:24:40 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,20 @@ int	take_forks(t_philo *philo)
 	forks = philo->data->forks;
 	id = philo->id;
 	count = philo->data->philo_count;
-	if (pthread_mutex_lock(&(forks[id])) != 0)
-		return (print_error(ERR_MUTEX_LOCK));
-	if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
-		return (print_error(ERR_MUTEX));
+	if (((id + 1) % count) < id)
+	{
+		if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
+			return (print_error(ERR_MUTEX));
+		if (pthread_mutex_lock(&(forks[id])) != 0)
+			return (print_error(ERR_MUTEX_LOCK));
+	}
+	else
+	{
+		if (pthread_mutex_lock(&(forks[id])) != 0)
+			return (print_error(ERR_MUTEX_LOCK));
+		if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
+			return (print_error(ERR_MUTEX));
+	}
 	print_status(philo, FORK_TAKEN);
 	print_status(philo, FORK_TAKEN);
 	return (0);
