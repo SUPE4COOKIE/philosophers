@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/24 16:24:40 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:33:37 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,10 @@ int	take_forks(t_philo *philo)
 	forks = philo->data->forks;
 	id = philo->id;
 	count = philo->data->philo_count;
-	if (((id + 1) % count) < id)
-	{
-		if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
-			return (print_error(ERR_MUTEX));
-		if (pthread_mutex_lock(&(forks[id])) != 0)
-			return (print_error(ERR_MUTEX_LOCK));
-	}
-	else
-	{
-		if (pthread_mutex_lock(&(forks[id])) != 0)
-			return (print_error(ERR_MUTEX_LOCK));
-		if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
-			return (print_error(ERR_MUTEX));
-	}
+	if (pthread_mutex_lock(&(forks[(id + 1) % count])) != 0)
+		return (print_error(ERR_MUTEX));
+	if (pthread_mutex_lock(&(forks[id])) != 0)
+		return (print_error(ERR_MUTEX_LOCK));
 	print_status(philo, FORK_TAKEN);
 	print_status(philo, FORK_TAKEN);
 	return (0);
@@ -74,9 +64,9 @@ int	eat(t_philo *philo)
 		return (1);
 	if (print_status(philo, EATING))
 		return (1);
-	philo->last_meal = get_time_ms();
 	philo->meal_count++;
 	usleep(philo->data->eat_time * 1000);
+	philo->last_meal = get_time_ms();
 	if (let_forks(philo))
 		return (1);
 	return (0);
@@ -95,6 +85,7 @@ int	think(t_philo *philo)
 {
 	if (print_status(philo, THINKING))
 		return (1);
+	usleep(1000);
 	return (0);
 }
 
