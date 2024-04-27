@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:01:24 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/08 19:37:25 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:36:02 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	return_overflow(long int result, int nptr, int sign)
 	return (1);
 }
 
-int	ft_atoi(const char *nptr) //remove negatives
+int	ft_atoi(const char *nptr)
 {
 	long int	result;
 	int			sign;

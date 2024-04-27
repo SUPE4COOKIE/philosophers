@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 19:59:59 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 21:04:39 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <limits.h>
-# include <stdio.h> // to remove
+# include <stdio.h>
 
 typedef struct s_philo	t_philo;
 typedef struct s_fork	t_fork;
@@ -41,7 +41,7 @@ struct s_philo
 	int					id;
 	_Atomic long long	last_meal;
 	_Atomic char		alive;
-	size_t				meal_count;
+	_Atomic size_t				meal_count;
 	pthread_t			thread;
 	t_table				*data;
 };
@@ -64,4 +64,5 @@ long		get_time(void);
 int			all_have_eaten(t_table *table);
 int			remaining_alive(t_table *table);
 long long	get_time_ms(void);
+int			single_fork(t_philo *philo);
 #endif
