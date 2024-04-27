@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:04:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/08 20:19:04 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:29:07 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ ssize_t	parse_args(int ac, char **av, t_table *t)
 		t->eat_count = ft_atoi(av[5]);
 	else
 		t->eat_count = -1;
-	if (t->philo_count < 2)
+	if (t->philo_count < 1)
 		return (print_error(PHILO_NB));
 	if (t->die_time <= 0)
 		return (print_error(DIE_TIME));

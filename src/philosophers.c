@@ -6,25 +6,26 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 18:12:38 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:46:58 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void *routine(void *arg)
+void	*routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	while (philo->data->has_started == 0)
 		ft_sleep(1);
 	philo->last_meal = get_time_ms();
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
 		ft_sleep(philo->data->eat_time);
-	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1)
+	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
+			&& philo->data->philo_count != 1)
 		ft_sleep(philo->data->eat_time);
-	while (philo->data->eat_count == -1 || (int)(philo->meal_count) < philo->data->eat_count)
+	while (philo->data->eat_count == -1 || !all_have_eaten(philo->data))
 	{
 		if (!philo->data->has_started)
 			break ;

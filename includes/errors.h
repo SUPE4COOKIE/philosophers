@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:31:20 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/09 21:59:22 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:55:47 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # define ERR_TIME "Time failed"
 # define ERR_PRINTF "Printf failed"
 # define ERR_USLEEP "Usleep failed"
-# define PHILO_NB "Number of philosophers must be greater than 1"
+# define PHILO_NB "Number of philosophers must be greater than 0"
 # define DIE_TIME "Time to die must be greater than 0"
 # define EAT_TIME "Time to eat must be greater than 0"
 # define SLEEP_TIME "Time to sleep must be greater than 0"
-# define EAT_COUNT "Number of times each philosopher must eat must be greater than 0"
+# define EAT_COUNT "Number of times each philosopher must eat must be > than 0"
 # define ARGS_NB "Wrong number of arguments"
 #endif
