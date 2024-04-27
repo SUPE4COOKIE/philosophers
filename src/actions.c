@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/25 18:33:37 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:12:06 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	eat(t_philo *philo)
 	if (print_status(philo, EATING))
 		return (1);
 	philo->meal_count++;
-	usleep(philo->data->eat_time * 1000);
+	ft_sleep(philo->data->eat_time);
 	philo->last_meal = get_time_ms();
 	if (let_forks(philo))
 		return (1);
@@ -76,8 +76,7 @@ int	sleep_philo(t_philo *philo)
 {
 	if (print_status(philo, SLEEPING))
 		return (1);
-	if (usleep(philo->data->sleep_time * 1000) < 0)
-		return (print_error(ERR_USLEEP));
+	ft_sleep(philo->data->sleep_time);
 	return (0);
 }
 
@@ -85,7 +84,25 @@ int	think(t_philo *philo)
 {
 	if (print_status(philo, THINKING))
 		return (1);
-	usleep(1000);
+	ft_sleep(1);
 	return (0);
 }
 
+long	get_time(void)
+{
+	struct timeval	tv;
+	long			end;
+
+	gettimeofday(&tv, NULL);
+	end = ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
+	return (end);
+}
+
+void	ft_sleep(long long time)
+{
+	long long	start;
+
+	start = get_time_ms();
+	while (get_time_ms() < (long long)(start + time))
+		usleep(100);
+}

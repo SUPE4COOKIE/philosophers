@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/23 13:35:38 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:11:11 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ int		think(t_philo *philo);
 int		death_giver(t_table *table);
 int		print_status(t_philo *philo, char *status);
 void	free_table(t_table *table);
+void	ft_sleep(long long time);
+long	get_time(void);
 # endif

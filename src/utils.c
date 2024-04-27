@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/23 17:11:12 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:11:04 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,12 @@ int	init_threads(t_table *table)
 	if (table->start_time == -1)
 		return (print_error(ERR_TIME));
 	table->has_started = 1;
-	usleep(table->die_time * 1000); // FIXME: fix ;e ;dr
+	ft_sleep(table->die_time); // FIXME: fix ;e ;dr
 	while (remaining_alive(table))
 	{
 		if (death_giver(table))
 			break ;
-		usleep(1000);
+		ft_sleep(1);
 	}
 	while (i--)
 		pthread_join(table->philosophers[i].thread, NULL);
