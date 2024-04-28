@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:28:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 19:52:28 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:12:49 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	init_threads(t_table *table)
 	{
 		if (death_giver(table))
 			break ;
-		ft_sleep(1);
+		usleep(100);
 	}
 	while (i--)
 		pthread_join(table->philosophers[i].thread, NULL);

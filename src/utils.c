@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 19:49:01 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:22:22 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,6 @@ void	free_table(t_table *table)
 	}
 }
 
-int	all_have_eaten(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->philo_count)
-	{
-		if ((int)(table->philosophers[i].meal_count) < table->eat_count)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	print_status(t_philo *philo, char *status)
 {
 	if (philo->data->has_started == 0)
@@ -73,5 +59,14 @@ int	print_status(t_philo *philo, char *status)
 			status) < 0)
 		return (print_error(ERR_PRINTF));
 	pthread_mutex_unlock(&philo->data->printf);
+	return (0);
+}
+
+int	print_forks_taken(t_philo *philo)
+{
+	if (print_status(philo, FORK_TAKEN))
+		return (1);
+	if (print_status(philo, FORK_TAKEN))
+		return (1);
 	return (0);
 }

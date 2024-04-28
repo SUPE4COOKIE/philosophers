@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 21:03:20 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:23:09 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	single_fork(t_philo *philo)
 		return (print_error(ERR_MUTEX_LOCK));
 	print_status(philo, FORK_TAKEN);
 	while (philo->data->has_started == 1)
-		ft_sleep(1);
+		usleep(100);
 	return (0);
 }
 
@@ -54,9 +54,7 @@ int	take_forks(t_philo *philo)
 		if (pthread_mutex_lock(&(forks[id])) != 0)
 			return (print_error(ERR_MUTEX_LOCK));
 	}
-	print_status(philo, FORK_TAKEN);
-	print_status(philo, FORK_TAKEN);
-	return (0);
+	return (print_forks_taken(philo));
 }
 
 int	let_forks(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:29:46 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 19:53:29 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:21:11 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,18 @@ int	remaining_alive(t_table *table)
 		i++;
 	}
 	return (0);
+}
+
+int	all_have_eaten(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_count)
+	{
+		if ((int)(table->philosophers[i].meal_count) < table->eat_count)
+			return (0);
+		i++;
+	}
+	return (1);
 }

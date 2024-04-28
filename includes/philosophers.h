@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 21:04:39 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:22:45 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ struct s_philo
 	int					id;
 	_Atomic long long	last_meal;
 	_Atomic char		alive;
-	_Atomic size_t				meal_count;
+	_Atomic size_t		meal_count;
 	pthread_t			thread;
 	t_table				*data;
 };
@@ -65,4 +65,5 @@ int			all_have_eaten(t_table *table);
 int			remaining_alive(t_table *table);
 long long	get_time_ms(void);
 int			single_fork(t_philo *philo);
+int			print_forks_taken(t_philo *philo);
 #endif
