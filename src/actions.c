@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/28 23:23:09 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:40:20 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int	eat(t_philo *philo)
 		return (1);
 	if (philo->data->has_started == 0)
 		return (let_forks(philo));
+	philo->last_meal = get_time_ms();
 	if (print_status(philo, EATING))
 		return (1);
 	philo->meal_count++;
 	ft_sleep(philo->data->eat_time);
-	philo->last_meal = get_time_ms();
 	if (let_forks(philo))
 		return (1);
 	return (0);
@@ -100,6 +100,6 @@ int	think(t_philo *philo)
 {
 	if (print_status(philo, THINKING))
 		return (1);
-	ft_sleep(1);
+	usleep(10);
 	return (0);
 }

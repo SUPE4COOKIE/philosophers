@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:29:46 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/28 23:21:11 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:29:28 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	death_giver(t_table *table)
 				- table->philosophers[i].last_meal > table->die_time)
 			{
 				print_status(&table->philosophers[i], DEAD);
+				pthread_mutex_lock(&table->philosophers[i].data->printf);
 				table->has_started = 0;
+				ft_sleep(1);
+				pthread_mutex_unlock(&table->philosophers[i].data->printf);
 				return (1);
 			}
 		}

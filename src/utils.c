@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/28 23:22:22 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:11:45 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	free_table(t_table *table)
 
 int	print_status(t_philo *philo, char *status)
 {
-	if (philo->data->has_started == 0)
-		return (0);
 	if (pthread_mutex_lock(&philo->data->printf) != 0)
 		return (print_error(ERR_MUTEX_LOCK));
+	if (philo->data->has_started == 0)
+		return (pthread_mutex_unlock(&philo->data->printf), 0);
 	if (printf("%lld %d %s\n",
 			get_time_ms() - philo->data->start_time,
 			philo->id + 1,
