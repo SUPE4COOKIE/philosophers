@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/28 23:22:45 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:23:07 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,6 @@ int			remaining_alive(t_table *table);
 long long	get_time_ms(void);
 int			single_fork(t_philo *philo);
 int			print_forks_taken(t_philo *philo);
+void		free_forks_until_n(t_table *table, int n);
+void		free_no_printf(t_table *table);
 #endif

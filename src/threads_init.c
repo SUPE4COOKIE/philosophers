@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:28:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/28 23:12:49 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:29:26 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	init_philos(t_table *table)
 		table->philosophers[i].last_meal = 0;
 		table->philosophers[i].meal_count = 0;
 		table->philosophers[i].data = table;
+		table->philosophers[i].alive = 1;
 		i++;
 	}
 	return (0);
@@ -44,18 +45,11 @@ int	init_mutexes(t_table *table)
 	while (i < table->philo_count)
 	{
 		if (pthread_mutex_init(&(table->forks[i]), NULL))
-			return (print_error(ERR_MUTEX));
+			return (free_forks_until_n(table, i), print_error(ERR_MUTEX));
 		i++;
 	}
 	if (pthread_mutex_init(&table->printf, NULL))
-		return (print_error(ERR_MUTEX));
-	i = 0;
-	while (i < table->philo_count)
-	{
-		table->philosophers[i].meal_count = 0;
-		table->philosophers[i].alive = 1;
-		i++;
-	}
+		return (free_no_printf(table), print_error(ERR_MUTEX));
 	return (0);
 }
 
@@ -69,14 +63,14 @@ int	init_threads(t_table *table)
 	{
 		if (pthread_create(&table->philosophers[i].thread, NULL,
 				routine, &table->philosophers[i]))
-			return (print_error(ERR_THREAD));
+			return (print_error(ERR_THREAD)); //FIXME: free to avoid leaks
 		i++;
 	}
 	table->start_time = get_time_ms();
 	if (table->start_time == -1)
 		return (print_error(ERR_TIME));
 	table->has_started = 1;
-	ft_sleep(table->die_time); // FIXME: fix ;e ;dr
+	ft_sleep(table->die_time);
 	while (remaining_alive(table))
 	{
 		if (death_giver(table))
