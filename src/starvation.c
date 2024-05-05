@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   starvation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:29:46 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/30 16:29:28 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:25:14 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 #include "../includes/actions.h"
 
-int	death_giver(t_table *table)
+__attribute__((hot)) int	death_giver(t_table *table)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ int	death_giver(t_table *table)
 	return (0);
 }
 
-int	remaining_alive(t_table *table)
+__attribute__((hot)) int	remaining_alive(t_table *table)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:23:06 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/27 19:49:28 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:34:46 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ long	get_time(void)
 	return (end);
 }
 
-void	ft_sleep(long long time)
+__attribute__((hot)) void	ft_sleep(long long time)
 {
 	long long	start;
 

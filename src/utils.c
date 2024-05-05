@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 22:29:21 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/30 17:53:26 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:27:42 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ ssize_t	print_error(char *str)
 	return (write(2, str, ft_strlen(str)));
 }
 
-int	print_status(t_philo *philo, char *status)
+__attribute__((hot)) int	print_status(t_philo *philo, char *status)
 {
 	if (pthread_mutex_lock(&philo->data->printf) != 0)
 		return (print_error(ERR_MUTEX_LOCK));
