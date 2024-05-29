@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   starvation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:29:46 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/05/05 02:25:14 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:45:45 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ __attribute__((hot)) int	death_giver(t_table *table)
 			if (get_time_ms()
 				- table->philosophers[i].last_meal > table->die_time)
 			{
-				print_status(&table->philosophers[i], DEAD);
-				pthread_mutex_lock(&table->philosophers[i].data->printf);
 				table->has_started = 0;
+				pthread_mutex_lock(&table->philosophers[i].data->printf);
+				printf("%lld %d %s\n",
+					get_time_ms() - table->start_time,
+					table->philosophers[i].id + 1, DEAD);
 				ft_sleep(1);
 				pthread_mutex_unlock(&table->philosophers[i].data->printf);
 				return (1);
