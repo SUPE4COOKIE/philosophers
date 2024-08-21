@@ -26,7 +26,7 @@ typedef struct 					s_table
 {
 	_Atomic int			eat_count;
 	_Atomic char		has_started;
-	pthread_mutex_t		*forks;
+	t_fork				*forks;
 	pthread_mutex_t		printf;
 	int					philo_count;
 	int					die_time;
@@ -46,6 +46,12 @@ struct s_philo
 	int					id;
 }	__attribute__((aligned(64)));
 
+struct s_fork
+{
+	pthread_mutex_t	fork;
+	_Atomic char	taken;
+};
+
 int			ft_atoi(const char *nptr);
 ssize_t		parse_args(int ac, char **av, t_table *t);
 ssize_t		print_error(char *str);
@@ -58,6 +64,7 @@ __attribute__((hot)) int	sleep_philo(t_philo *philo);
 __attribute__((hot)) int	think(t_philo *philo);
 __attribute__((hot)) int			death_giver(t_table *table);
 __attribute__((hot)) int			print_status(t_philo *philo, char *status);
+__attribute__((hot)) long long get_sleep_time(t_philo *philo, long long time);
 void		free_table(t_table *table);
 __attribute__((hot)) void		ft_sleep(long long time);
 long		get_time(void);

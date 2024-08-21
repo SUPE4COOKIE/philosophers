@@ -9,7 +9,7 @@
 # define ERR_TIME "Time failed\n"
 # define ERR_PRINTF "Printf failed\n"
 # define ERR_USLEEP "Usleep failed\n"
-# define PHILO_NB "Number of philosophers must be greater than 0\n"
+# define PHILO_NB "Invalid number of philosophers\n"
 # define DIE_TIME "Time to die must be greater than 0\n"
 # define EAT_TIME "Time to eat must be greater than 0\n"
 # define SLEEP_TIME "Time to sleep must be greater than 0\n"

@@ -14,6 +14,13 @@
 #include "../includes/errors.h"
 #include "../includes/actions.h"
 
+__attribute__((hot)) long long get_sleep_time(t_philo *philo, long long time)
+{
+	if (get_time_ms() - philo->last_meal + time > philo->data->die_time)
+		return (philo->data->die_time - (get_time_ms() - philo->last_meal) + 10);
+	return (time);
+}
+
 __attribute__((hot)) int	eat(t_philo *philo)
 {
 	if (take_forks(philo))
@@ -24,7 +31,7 @@ __attribute__((hot)) int	eat(t_philo *philo)
 	if (print_status(philo, EATING))
 		return (1);
 	philo->meal_count++;
-	ft_sleep(philo->data->eat_time);
+	ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	if (let_forks(philo))
 		return (1);
 	return (0);
@@ -34,7 +41,7 @@ __attribute__((hot)) int	sleep_philo(t_philo *philo)
 {
 	if (print_status(philo, SLEEPING))
 		return (1);
-	ft_sleep(philo->data->sleep_time);
+	ft_sleep(get_sleep_time(philo, philo->data->sleep_time));
 	return (0);
 }
 

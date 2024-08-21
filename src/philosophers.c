@@ -12,6 +12,8 @@
 
 #include "../includes/philosophers.h"
 
+
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -21,10 +23,10 @@ void	*routine(void *arg)
 		usleep(10);
 	philo->last_meal = get_time_ms();
 	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
-		ft_sleep(philo->data->eat_time);
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
 			&& philo->data->philo_count != 1)
-		ft_sleep(philo->data->eat_time);
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	while (philo->data->eat_count == -1 || !all_have_eaten(philo->data))
 	{
 		if (!philo->data->has_started)
@@ -45,6 +47,8 @@ int	main(int ac, char **av)
 {
 	t_table	table;
 
+	if (get_time_ms() == -1)
+		return (1);
 	if (parse_args(ac, av, &table) != 0)
 		return (1);
 	if (init_philos(&table))

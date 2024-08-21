@@ -41,7 +41,7 @@ void	free_forks_until_n(t_table *table, int n)
 	i = 0;
 	while (i < n)
 	{
-		pthread_mutex_destroy(&table->forks[i]);
+		pthread_mutex_destroy(&table->forks[i].fork);
 		i++;
 	}
 	free(table->forks);

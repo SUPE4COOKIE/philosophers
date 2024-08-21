@@ -39,12 +39,13 @@ int	init_mutexes(t_table *table)
 	int	i;
 
 	i = 0;
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_count);
+	table->forks = (t_fork *)malloc(sizeof(t_fork) * table->philo_count);
 	if (!table->forks)
 		return (print_error(ERR_MALLOC));
 	while (i < table->philo_count)
 	{
-		if (pthread_mutex_init(&(table->forks[i]), NULL))
+		table->forks[i].taken = 0;
+		if (pthread_mutex_init(&(table->forks[i].fork), NULL))
 			return (free_forks_until_n(table, i), print_error(ERR_MUTEX));
 		i++;
 	}
@@ -67,8 +68,6 @@ int	init_threads(t_table *table)
 		i++;
 	}
 	table->start_time = get_time_ms();
-	if (table->start_time == -1)
-		return (print_error(ERR_TIME));
 	table->has_started = 1;
 	ft_sleep(table->die_time);
 	while (remaining_alive(table))
