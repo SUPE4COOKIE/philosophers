@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 02:00:53 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/05/05 02:01:28 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/22 02:44:54 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ int	take_forks(t_philo *philo)
 		return (single_fork(philo));
 	if (((id + 1) % count) > id)
 	{
-		if (pthread_mutex_lock(&(forks[id].fork)) != 0)
-			return (print_error(ERR_MUTEX_LOCK));
-		if (pthread_mutex_lock(&(forks[(id + 1) % count].fork)) != 0)
-			return (print_error(ERR_MUTEX));
+		pthread_mutex_lock(&(forks[id].fork));
+		forks[id].taken = 1;
+		pthread_mutex_lock(&(forks[(id + 1) % count].fork));
+		forks[(id + 1) % count].taken = 1;
 	}
 	else
 	{
-		if (pthread_mutex_lock(&(forks[(id + 1) % count].fork)) != 0)
-			return (print_error(ERR_MUTEX));
-		if (pthread_mutex_lock(&(forks[id].fork)) != 0)
-			return (print_error(ERR_MUTEX_LOCK));
+		pthread_mutex_lock(&(forks[(id + 1) % count].fork));
+		forks[(id + 1) % count].taken = 1;
+		pthread_mutex_lock(&(forks[id].fork));
+		forks[id].taken = 1;
 	}
 	return (print_forks_taken(philo));
 }

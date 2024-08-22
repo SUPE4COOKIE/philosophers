@@ -3,16 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/05/05 02:10:26 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/22 02:41:10 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+#include "../includes/actions.h"
 
-
+void	unsync_threads(t_philo *philo)
+{
+	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
+	{
+		print_status(philo, THINKING);
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+	}
+	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
+			&& philo->data->philo_count != 1)
+	{
+		print_status(philo, THINKING);
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+	}
+}
 
 void	*routine(void *arg)
 {
@@ -22,11 +36,7 @@ void	*routine(void *arg)
 	while (philo->data->has_started == 0)
 		usleep(10);
 	philo->last_meal = get_time_ms();
-	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
-	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
-			&& philo->data->philo_count != 1)
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+	unsync_threads(philo);
 	while (philo->data->eat_count == -1 || !all_have_eaten(philo->data))
 	{
 		if (!philo->data->has_started)
