@@ -10,9 +10,9 @@
 # define ERR_PRINTF "Printf failed\n"
 # define ERR_USLEEP "Usleep failed\n"
 # define PHILO_NB "Invalid number of philosophers\n"
-# define DIE_TIME "Time to die must be greater than 0\n"
-# define EAT_TIME "Time to eat must be greater than 0\n"
-# define SLEEP_TIME "Time to sleep must be greater than 0\n"
-# define EAT_COUNT "Number of times each philosopher must eat must be > than 0\n"
+# define DIE_TIME "Invalid time to die\n"
+# define EAT_TIME "Invalid time to eat\n"
+# define SLEEP_TIME "Invalid time to sleep\n"
+# define EAT_COUNT "Number of times each philosopher must eat is Invalid\n"
 # define ARGS_NB "Wrong number of arguments\n"
 #endif

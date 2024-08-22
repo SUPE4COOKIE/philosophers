@@ -17,13 +17,11 @@ void	unsync_threads(t_philo *philo)
 {
 	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
 	{
-		print_status(philo, THINKING);
 		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	}
 	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
 			&& philo->data->philo_count != 1)
 	{
-		print_status(philo, THINKING);
 		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	}
 }
@@ -35,6 +33,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	while (philo->data->has_started == 0)
 		usleep(10);
+	if (philo->data->has_started == 2)
+		return (NULL);
 	philo->last_meal = get_time_ms();
 	unsync_threads(philo);
 	while (philo->data->eat_count == -1 || !all_have_eaten(philo->data))
@@ -62,7 +62,7 @@ int	main(int ac, char **av)
 	if (parse_args(ac, av, &table) != 0)
 		return (1);
 	if (init_philos(&table))
-		return (free_table(&table), 1);
+		return (1);
 	if (init_mutexes(&table))
 		return (free_table(&table), 1);
 	if (init_threads(&table))

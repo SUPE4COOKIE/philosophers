@@ -54,6 +54,13 @@ int	init_mutexes(t_table *table)
 	return (0);
 }
 
+void	free_threads_until_n(t_table *table, int n)
+{
+	table->has_started = 2;
+	while (n--)
+		pthread_join(table->philosophers[n].thread, NULL);
+}
+
 int	init_threads(t_table *table)
 {
 	int	i;
@@ -64,7 +71,7 @@ int	init_threads(t_table *table)
 	{
 		if (pthread_create(&table->philosophers[i].thread, NULL,
 				routine, &table->philosophers[i]))
-			return (print_error(ERR_THREAD)); //FIXME: free to avoid leaks
+			return (free_threads_until_n(table, i), print_error(ERR_THREAD)); //FIXME: free to avoid leaks
 		i++;
 	}
 	table->start_time = get_time_ms();

@@ -42,20 +42,30 @@ int	take_forks(t_philo *philo)
 		return (single_fork(philo));
 	if (((id + 1) % count) > id)
 	{
+		while (forks[id].taken == 1)
+			usleep(10);
 		pthread_mutex_lock(&(forks[id].fork));
 		forks[id].taken = 1;
+		while (forks[(id + 1) % count].taken == 1)
+			usleep(10);
 		pthread_mutex_lock(&(forks[(id + 1) % count].fork));
 		forks[(id + 1) % count].taken = 1;
 	}
 	else
 	{
+		while (forks[(id + 1) % count].taken == 1)
+			usleep(10);
 		pthread_mutex_lock(&(forks[(id + 1) % count].fork));
 		forks[(id + 1) % count].taken = 1;
+		while (forks[id].taken == 1)
+			usleep(10);
 		pthread_mutex_lock(&(forks[id].fork));
 		forks[id].taken = 1;
 	}
 	return (print_forks_taken(philo));
 }
+
+
 
 int	let_forks(t_philo *philo)
 {
@@ -65,9 +75,11 @@ int	let_forks(t_philo *philo)
 	id = philo->id;
 	count = philo->data->philo_count;
 	if (philo->data->philo_count != 1)
-		if (pthread_mutex_unlock(&(philo->data->forks[(id + 1) % count].fork)) != 0)
-			return (print_error(ERR_MUTEX_UNLOCK));
-	if (pthread_mutex_unlock(&(philo->data->forks[id].fork)) != 0)
-		return (print_error(ERR_MUTEX_UNLOCK));
+	{
+		pthread_mutex_unlock(&(philo->data->forks[(id + 1) % count].fork));
+		philo->data->forks[(id + 1) % count].taken = 0;
+	}
+	pthread_mutex_unlock(&(philo->data->forks[id].fork));
+	philo->data->forks[id].taken = 0;
 	return (0);
 }

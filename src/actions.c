@@ -47,8 +47,11 @@ __attribute__((hot)) int	sleep_philo(t_philo *philo)
 
  __attribute__((hot)) int	think(t_philo *philo)
 {
+	int philo_count;
+
+	philo_count = philo->data->philo_count;
 	if (print_status(philo, THINKING))
 		return (1);
-	usleep(10);
+	usleep(100);
 	return (0);
 }
