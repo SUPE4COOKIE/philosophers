@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/05/05 02:23:59 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/24 03:40:26 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 #include "../includes/errors.h"
 #include "../includes/actions.h"
 
-__attribute__((hot)) long long get_sleep_time(t_philo *philo, long long time)
+__attribute__((hot)) long long	get_sleep_time(t_philo *philo, long long time)
 {
+	long long	remain;
+
 	if (get_time_ms() - philo->last_meal + time > philo->data->die_time)
-		return (philo->data->die_time - (get_time_ms() - philo->last_meal) + 10);
+	{
+		remain = philo->data->die_time - (get_time_ms() - philo->last_meal);
+		return (remain + 10);
+	}
 	return (time);
 }
 
@@ -45,13 +50,10 @@ __attribute__((hot)) int	sleep_philo(t_philo *philo)
 	return (0);
 }
 
- __attribute__((hot)) int	think(t_philo *philo)
+__attribute__((hot)) int	think(t_philo *philo)
 {
-	int philo_count;
-
-	philo_count = philo->data->philo_count;
 	if (print_status(philo, THINKING))
 		return (1);
-	usleep(100);
+	usleep(250);
 	return (0);
 }

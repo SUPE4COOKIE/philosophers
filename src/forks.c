@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 02:00:53 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/22 02:44:54 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/24 04:26:09 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,30 @@ int	single_fork(t_philo *philo)
 	return (0);
 }
 
+void	forks_1st_half(t_fork *forks, int id, int count)
+{
+	while (forks[id].taken == 1)
+		usleep(10);
+	pthread_mutex_lock(&(forks[id].fork));
+	forks[id].taken = 1;
+	while (forks[(id + 1) % count].taken == 1)
+		usleep(10);
+	pthread_mutex_lock(&(forks[(id + 1) % count].fork));
+	forks[(id + 1) % count].taken = 1;
+}
+
+void	forks_2nd_half(t_fork *forks, int id, int count)
+{
+	while (forks[(id + 1) % count].taken == 1)
+		usleep(10);
+	pthread_mutex_lock(&(forks[(id + 1) % count].fork));
+	forks[(id + 1) % count].taken = 1;
+	while (forks[id].taken == 1)
+		usleep(10);
+	pthread_mutex_lock(&(forks[id].fork));
+	forks[id].taken = 1;
+}
+
 int	take_forks(t_philo *philo)
 {
 	t_fork	*forks;
@@ -41,31 +65,11 @@ int	take_forks(t_philo *philo)
 	if (philo->data->philo_count == 1)
 		return (single_fork(philo));
 	if (((id + 1) % count) > id)
-	{
-		while (forks[id].taken == 1)
-			usleep(10);
-		pthread_mutex_lock(&(forks[id].fork));
-		forks[id].taken = 1;
-		while (forks[(id + 1) % count].taken == 1)
-			usleep(10);
-		pthread_mutex_lock(&(forks[(id + 1) % count].fork));
-		forks[(id + 1) % count].taken = 1;
-	}
+		forks_1st_half(forks, id, count);
 	else
-	{
-		while (forks[(id + 1) % count].taken == 1)
-			usleep(10);
-		pthread_mutex_lock(&(forks[(id + 1) % count].fork));
-		forks[(id + 1) % count].taken = 1;
-		while (forks[id].taken == 1)
-			usleep(10);
-		pthread_mutex_lock(&(forks[id].fork));
-		forks[id].taken = 1;
-	}
+		forks_2nd_half(forks, id, count);
 	return (print_forks_taken(philo));
 }
-
-
 
 int	let_forks(t_philo *philo)
 {

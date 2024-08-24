@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:28:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/30 18:29:26 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/23 02:20:09 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	init_threads(t_table *table)
 	{
 		if (pthread_create(&table->philosophers[i].thread, NULL,
 				routine, &table->philosophers[i]))
-			return (free_threads_until_n(table, i), print_error(ERR_THREAD)); //FIXME: free to avoid leaks
+			return (free_threads_until_n(table, i), print_error(ERR_THREAD));
 		i++;
 	}
 	table->start_time = get_time_ms();

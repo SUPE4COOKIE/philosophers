@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/05/05 02:34:27 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/24 04:17:43 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 
 typedef struct s_philo	t_philo;
 typedef struct s_fork	t_fork;
+typedef struct s_table	t_table;
 
-typedef struct 					s_table
+struct			s_table
 {
 	_Atomic int			eat_count;
 	_Atomic char		has_started;
@@ -34,7 +35,7 @@ typedef struct 					s_table
 	int					sleep_time;
 	t_philo				*philosophers;
 	_Atomic long long	start_time;
-}	__attribute__((aligned(64))) t_table;
+}	__attribute__((aligned(64)));
 
 struct s_philo
 {
@@ -59,17 +60,17 @@ int			init_philos(t_table *table);
 int			init_threads(t_table *table);
 int			init_mutexes(t_table *table);
 void		*routine(void *arg);
-__attribute__((hot)) int			eat(t_philo *philo);
-__attribute__((hot)) int	sleep_philo(t_philo *philo);
-__attribute__((hot)) int	think(t_philo *philo);
-__attribute__((hot)) int			death_giver(t_table *table);
-__attribute__((hot)) int			print_status(t_philo *philo, char *status);
-__attribute__((hot)) long long get_sleep_time(t_philo *philo, long long time);
+int			eat(t_philo *philo) __attribute__((hot));
+int			sleep_philo(t_philo *philo) __attribute__((hot));
+int			think(t_philo *philo) __attribute__((hot));
+int			death_giver(t_table *table) __attribute__((hot));
+int			print_status(t_philo *philo, char *status) __attribute__((hot));
+long long	get_sleep_time(t_philo *philo, long long time)__attribute__((hot));
 void		free_table(t_table *table);
-__attribute__((hot)) void		ft_sleep(long long time);
+void		ft_sleep(long long time) __attribute__((hot));
 long		get_time(void);
 int			all_have_eaten(t_table *table);
-__attribute__((hot)) int			remaining_alive(t_table *table);
+int			remaining_alive(t_table *table) __attribute__((hot));
 long long	get_time_ms(void);
 int			single_fork(t_philo *philo);
 int			print_forks_taken(t_philo *philo);
