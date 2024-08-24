@@ -42,10 +42,10 @@ void	*routine(void *arg)
 		if (!philo->data->has_started)
 			break ;
 		eat(philo);
-		if (!philo->data->has_started || all_have_eaten(philo->data))
+		if (!philo->data->has_started)
 			break ;
 		sleep_philo(philo);
-		if (!philo->data->has_started || all_have_eaten(philo->data))
+		if (!philo->data->has_started)
 			break ;
 		think(philo);
 	}
