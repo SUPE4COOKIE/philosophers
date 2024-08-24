@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/22 02:41:10 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/24 04:36:48 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	*routine(void *arg)
 		if (!philo->data->has_started)
 			break ;
 		eat(philo);
-		if (!philo->data->has_started)
+		if (!philo->data->has_started || all_have_eaten(philo->data))
 			break ;
 		sleep_philo(philo);
-		if (!philo->data->has_started)
+		if (!philo->data->has_started || all_have_eaten(philo->data))
 			break ;
 		think(philo);
 	}
