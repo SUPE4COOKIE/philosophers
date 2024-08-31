@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 02:00:53 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/31 14:48:38 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:34:43 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	take_forks(t_philo *philo)
 	count = philo->data->philo_count;
 	if (philo->data->philo_count == 1)
 		return (single_fork(philo));
-	//forks_1st_half(forks, id, count);
+	forks_1st_half(forks, id, count);
 	//if (((id + 1) % count) > id)
 	//	forks_1st_half(forks, id, count);
 	//else

@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:03:17 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/31 02:46:00 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:40:05 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ __attribute__((hot)) int	think(t_philo *philo)
 	if ((philo->id == 0 || (philo->id == philo->data->philo_count - 2)) && philo->meal_count == 1 && (philo->data->philo_count % 2))
 	{
 		if ((philo->data->philo_count > 3) && philo->id == 0)
-			ft_sleep(get_sleep_time(philo, philo->data->eat_time) - philo->data->sleep_time);
+			ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	}
 	else
 		usleep(250);

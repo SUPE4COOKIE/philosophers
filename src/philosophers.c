@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/24 04:36:48 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:53:31 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*routine(void *arg)
 		return (NULL);
 	philo->last_meal = get_time_ms();
 	unsync_threads(philo);
-	while (philo->data->eat_count == -1 || !all_have_eaten(philo->data))
+	while (philo->data->has_started == 1)
 	{
 		if (!philo->data->has_started)
 			break ;
