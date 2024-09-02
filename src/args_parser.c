@@ -13,10 +13,39 @@
 #include "../includes/philosophers.h"
 #include "../includes/errors.h"
 
+int	ft_isdigit(int c)
+{
+	if ((c >= '0' && c <= '9'))
+		return (1);
+	return (0);
+}
+
+int	are_all_args_digits(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (!ft_isdigit(av[i][j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 ssize_t	parse_args(int ac, char **av, t_table *t)
 {
 	if (ac < 5 || ac > 6)
 		return (print_error(ARGS_NB));
+	if (!are_all_args_digits(av))
+		return (print_error(ARG_DIGIT));
 	t->philo_count = ft_atoi(av[1]);
 	t->die_time = ft_atoi(av[2]);
 	t->eat_time = ft_atoi(av[3]);

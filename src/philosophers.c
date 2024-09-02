@@ -17,12 +17,12 @@ void	unsync_threads(t_philo *philo)
 {
 	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
 	{
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
 	}
 	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
 			&& philo->data->philo_count != 1)
 	{
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
 	}
 }
 
@@ -42,14 +42,13 @@ void	*routine(void *arg)
 		if (!philo->data->has_started)
 			break ;
 		eat(philo);
-		if (!philo->data->has_started)
+		if (philo->data->has_started != 1)
 			break ;
 		sleep_philo(philo);
-		if (!philo->data->has_started)
+		if (philo->data->has_started != 1)
 			break ;
 		think(philo);
 	}
-	philo->alive = 2;
 	return (NULL);
 }
 

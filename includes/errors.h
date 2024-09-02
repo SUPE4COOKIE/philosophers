@@ -27,4 +27,5 @@
 # define SLEEP_TIME "Invalid time to sleep\n"
 # define EAT_COUNT "Number of times each philosopher must eat is Invalid\n"
 # define ARGS_NB "Wrong number of arguments\n"
+# define ARG_DIGIT "Invalid input\n"
 #endif

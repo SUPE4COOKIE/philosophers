@@ -35,8 +35,8 @@ __attribute__((hot)) int	eat(t_philo *philo)
 	philo->last_meal = get_time_ms();
 	if (print_status(philo, EATING))
 		return (1);
+	ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
 	philo->meal_count++;
-	ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	if (let_forks(philo))
 		return (1);
 	return (0);
@@ -46,7 +46,7 @@ __attribute__((hot)) int	sleep_philo(t_philo *philo)
 {
 	if (print_status(philo, SLEEPING))
 		return (1);
-	ft_sleep(get_sleep_time(philo, philo->data->sleep_time));
+	ft_sleep(get_sleep_time(philo, philo->data->sleep_time), &(philo->data->has_started));
 	return (0);
 }
 
@@ -57,12 +57,13 @@ __attribute__((hot)) int	think(t_philo *philo)
 	if (philo->data->philo_count == 3
 		&& philo->data->eat_time > philo->data->sleep_time)
 	{
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
 	}
 	else if ((philo->id == 0 || (philo->id == philo->data->philo_count - 2))
-		&& philo->meal_count == 1 && (philo->data->philo_count % 2))
+		&& philo->meal_count == 1 && (philo->data->philo_count % 2)
+		&& (philo->data->eat_time > philo->data->sleep_time))
 	{
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
+		ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
 	}
 	else
 		usleep(250);

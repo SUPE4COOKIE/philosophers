@@ -14,10 +14,10 @@ OBJDEPS = $(OBJ:.o=.d)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) Makefile
+$(NAME): $(OBJ) 
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile | $(OBJ_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_PATH):

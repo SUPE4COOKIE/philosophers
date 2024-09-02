@@ -40,7 +40,6 @@ struct			s_table
 struct s_philo
 {
 	_Atomic long long	last_meal;
-	_Atomic char		alive;
 	_Atomic size_t		meal_count;
 	pthread_t			thread;
 	t_table				*data;
@@ -68,7 +67,7 @@ int			print_status(t_philo *philo, char *status) __attribute__((hot));
 long long	get_sleep_time(t_philo *philo, long long time)__attribute__((hot));
 int			meal_ender(t_table *table) __attribute__((hot));
 void		free_table(t_table *table);
-void		ft_sleep(long long time) __attribute__((hot));
+void		ft_sleep(long long time, _Atomic char *has_started) __attribute__((hot));
 long		get_time(void);
 int			all_have_eaten(t_table *table);
 int			remaining_alive(t_table *table) __attribute__((hot));

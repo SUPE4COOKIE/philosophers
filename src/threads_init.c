@@ -28,7 +28,7 @@ int	init_philos(t_table *table)
 		table->philosophers[i].last_meal = 0;
 		table->philosophers[i].meal_count = 0;
 		table->philosophers[i].data = table;
-		table->philosophers[i].alive = 1;
+		//table->philosophers[i].alive = 1;
 		i++;
 	}
 	return (0);
@@ -76,8 +76,8 @@ int	init_threads(t_table *table)
 	}
 	table->start_time = get_time_ms();
 	table->has_started = 1;
-	ft_sleep(table->die_time);
-	while (remaining_alive(table))
+	ft_sleep(table->die_time, &(table->has_started));
+	while (1)
 	{
 		if (death_giver(table))
 			break ;

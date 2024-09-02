@@ -32,11 +32,15 @@ long	get_time(void)
 	return (end);
 }
 
-__attribute__((hot)) void	ft_sleep(long long time)
+__attribute__((hot)) void	ft_sleep(long long time, _Atomic char *has_started)
 {
 	long long	start;
 
 	start = get_time_ms();
 	while (get_time_ms() < (long long)(start + time))
+	{
+		if (*has_started != 1)
+			return ;
 		usleep(100);
+	}
 }
