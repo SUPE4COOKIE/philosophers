@@ -66,6 +66,7 @@ int			think(t_philo *philo) __attribute__((hot));
 int			death_giver(t_table *table) __attribute__((hot));
 int			print_status(t_philo *philo, char *status) __attribute__((hot));
 long long	get_sleep_time(t_philo *philo, long long time)__attribute__((hot));
+int			meal_ender(t_table *table) __attribute__((hot));
 void		free_table(t_table *table);
 void		ft_sleep(long long time) __attribute__((hot));
 long		get_time(void);

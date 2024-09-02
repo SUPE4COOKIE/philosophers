@@ -54,11 +54,13 @@ __attribute__((hot)) int	think(t_philo *philo)
 {
 	if (print_status(philo, THINKING))
 		return (1);
-	if (philo->data->philo_count == 3 && philo->data->eat_time > philo->data->sleep_time)
+	if (philo->data->philo_count == 3
+		&& philo->data->eat_time > philo->data->sleep_time)
 	{
 		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	}
-	else if ((philo->id == 0 || (philo->id == philo->data->philo_count - 2)) && philo->meal_count == 1 && (philo->data->philo_count % 2))
+	else if ((philo->id == 0 || (philo->id == philo->data->philo_count - 2))
+		&& philo->meal_count == 1 && (philo->data->philo_count % 2))
 	{
 		ft_sleep(get_sleep_time(philo, philo->data->eat_time));
 	}

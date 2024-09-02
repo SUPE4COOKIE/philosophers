@@ -54,3 +54,19 @@ __attribute__((hot)) int	remaining_alive(t_table *table)
 	return (0);
 }
 
+__attribute__((hot)) int	meal_ender(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	if (table->eat_count == -1)
+		return (0);
+	while (i < table->philo_count)
+	{
+		if ((int)(table->philosophers[i].meal_count) < table->eat_count)
+			return (0);
+		i++;
+	}
+	table->has_started = 2;
+	return (1);
+}

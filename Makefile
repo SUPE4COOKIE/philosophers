@@ -10,14 +10,14 @@ HEADERS = $(addprefix $(HEADER_PATH)/, $(HEADER_FILES))
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ_PATH = .obj
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC_FILES:.c=.o))
-OBJDEPS = $(addprefix $(OBJ_PATH)/, $(OBJ:.o=.d))
+OBJDEPS = $(OBJ:.o=.d)
 
 all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile $(HEADERS) | $(OBJ_PATH)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_PATH):
