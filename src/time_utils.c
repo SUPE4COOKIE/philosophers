@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:23:06 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/05/05 02:34:46 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/09/03 02:40:28 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ long	get_time(void)
 	return (end);
 }
 
-__attribute__((hot)) void	ft_sleep(long long time, _Atomic char *has_started)
+__attribute__((hot)) void	ft_sleep(long long time, t_table *table)
 {
-	long long	start;
+	long long		start;
+	_Atomic char	*has_started;
 
+	has_started = &table->has_started;
 	start = get_time_ms();
 	while (get_time_ms() < (long long)(start + time))
 	{

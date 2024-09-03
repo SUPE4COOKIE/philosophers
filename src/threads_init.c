@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 19:28:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/31 21:28:12 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/09/03 02:49:07 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	init_philos(t_table *table)
 		table->philosophers[i].last_meal = 0;
 		table->philosophers[i].meal_count = 0;
 		table->philosophers[i].data = table;
-		//table->philosophers[i].alive = 1;
 		i++;
 	}
 	return (0);
@@ -76,7 +75,6 @@ int	init_threads(t_table *table)
 	}
 	table->start_time = get_time_ms();
 	table->has_started = 1;
-	ft_sleep(table->die_time, &(table->has_started));
 	while (1)
 	{
 		if (death_giver(table))

@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 19:35:01 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/24 04:17:43 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/09/03 02:38:34 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,10 @@ int			sleep_philo(t_philo *philo) __attribute__((hot));
 int			think(t_philo *philo) __attribute__((hot));
 int			death_giver(t_table *table) __attribute__((hot));
 int			print_status(t_philo *philo, char *status) __attribute__((hot));
-long long	get_sleep_time(t_philo *philo, long long time)__attribute__((hot));
 int			meal_ender(t_table *table) __attribute__((hot));
 void		free_table(t_table *table);
-void		ft_sleep(long long time, _Atomic char *has_started) __attribute__((hot));
+void		ft_sleep(long long time, t_table *table)__attribute__((hot));
 long		get_time(void);
-int			all_have_eaten(t_table *table);
-int			remaining_alive(t_table *table) __attribute__((hot));
 long long	get_time_ms(void);
 int			single_fork(t_philo *philo);
 int			print_forks_taken(t_philo *philo);

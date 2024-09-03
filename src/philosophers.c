@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:35:37 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/08/31 20:53:31 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/09/03 02:39:19 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	unsync_threads(t_philo *philo)
 {
 	if (philo->id % 2 == 0 && philo->data->philo_count != 1)
 	{
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
+		ft_sleep(philo->data->eat_time, philo->data);
 	}
 	if (philo->id % 2 == 0 && philo->id == philo->data->philo_count - 1 \
 			&& philo->data->philo_count != 1)
 	{
-		ft_sleep(get_sleep_time(philo, philo->data->eat_time), &(philo->data->has_started));
+		ft_sleep(philo->data->eat_time, philo->data);
 	}
 }
 
